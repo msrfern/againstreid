@@ -19,14 +19,12 @@ import datetime
 import time
 import subprocess
 
-#основной - 5848937476:AAFjJZjMZldCaA6PuIzkkU_JHOwGF64s1_I
-#тесты - 5960595375:AAEcGTY6gtujP19f944WsP2_J_Iq_ej6iAg
-
-TOKEN = '5848937476:AAFjJZjMZldCaA6PuIzkkU_JHOwGF64s1_I'
-ALLOWGROUPS = [-1001944684587]
-OWNER = [1606370786, 5646454866]
-CHANNEL = -1001914416058
-CHANNELNAME = 'https://t.me/AgeFandom'
+TOKEN = '' #указываете здесь ваш токен бота
+ALLOWGROUPS = [1] #можете указать айди группы поддержки. не трогайте этот параметр, если поддержки нет
+OWNER = [1, 2] #указываете здесь айди владельца бота (можно несколько владельцом, через запяту.)
+CHANNEL = 1 #указываете айди канала, на который нужно подписаться 
+CHANNELNAME = 'https://t.me/channel' #указываете ссылку канала, на который нужно подписаться
+GROUPP = 1 #укажите айди группы администраторов, в которую добавлен бот. это обязательно.
 PROXY_URL = 'http://proxy.server:3128' #Прокси для pythonanywhere
 storage = MemoryStorage()
 bot = Bot(token=TOKEN, parse_mode='HTML')#, proxy=PROXY_URL) #Прокси
@@ -164,7 +162,7 @@ async def name_handler(msg: t.Message, state: FSMContext):
         t.InlineKeyboardButton(text="Заблокировать", callback_data=f"BanAnketa_{msg.from_user.id}"),
     ]
     keyboard.add(*buttons)
-    await bot.send_message(-1001948349604, f'''
+    await bot.send_message(GROUPP, f'''
 <b>Новая анкета</b>
 
 Имя: {name}
@@ -224,16 +222,9 @@ async def fghjk(msg: t.Message):
     for ch in channel:
         try:
             chat = await bot.get_chat(ch[0])
-            with open('photo.png', 'rb') as photo_file:
-                # Отправляем фото
-                await bot.send_photo(chat_id=ch[0], photo=photo_file, caption=f'''
-<b><a href="https://t.me/AgeFandom">Создай свою идеальную страну, управляй ею, захватывай новые земли и сотрудничай с другими странами!</a></b>
-
-<a href="https://t.me/AgeFandom">Agᴇ ᴏf Fᴀndᴏʍ - ᴄᴛᴩᴀᴛᴇᴦия, ᴋᴏᴛᴏᴩую ᴧᴇᴦᴋᴏ ᴏᴄʙᴏиᴛь, нᴏ ᴛᴩуднᴏ ᴄᴛᴀᴛь ʍᴀᴄᴛᴇᴩᴏʍ.Вᴀɯᴀ цᴇᴧь - ᴏбъᴇдиниᴛь иᴧи ᴨᴏᴋᴏᴩиᴛь ʙᴇᴄь ʍиᴩ, иᴄᴨᴏᴧьɜуя ᴧиɯь ʙᴏᴇнную ᴛᴀᴋᴛиᴋу и хиᴛᴩую диᴨᴧᴏʍᴀᴛию.
-Будᴇᴛ ᴧи ʍиᴩ иᴄᴛᴇᴋᴀᴛь ᴋᴩᴏʙью иᴧи ᴨᴩᴇᴋᴧᴏняᴛьᴄя ᴨᴇᴩᴇд ʙᴀʍи? Выбᴏᴩ ʙᴀɯ..</a>
-
-https://t.me/AgeFandom
-                    ''')
+            await bot.send_message(ch[0], '''
+Текст
+            ''')
             await msg.answer(f'Отправлено @{chat["username"]}')
         except Exception as e:
             print(e)
@@ -303,7 +294,7 @@ async def рассылкабеать(msg: t.Message):
         for idd in a:
             id = idd[0]
             try:
-                await bot.send_message(id, f'{msg.text[9:]}')
+                await bot.send_message(id, f'{msg.text[17:]}')
             except:
                 pass
         await msg.reply('Закончил')
